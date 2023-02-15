@@ -22,15 +22,15 @@ public class CoreSpringTests {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(CoreSpringTests.class);
         CacheBean bean = ctx.getBean(CacheBean.class);
-        Stream.of(bean.list()).forEach(System.out::println);
-        Stream.of(bean.list()).forEach(System.out::println);
-        Stream.of(bean.list1()).forEach(System.out::println);
-        Stream.of(bean.list1()).forEach(System.out::println);
+//        Stream.of(bean.list()).forEach(System.out::println);
+//        Stream.of(bean.list()).forEach(System.out::println);
+//        Stream.of(bean.list1()).forEach(System.out::println);
+//        Stream.of(bean.list1()).forEach(System.out::println);
         Stream.of(bean.getById("1")).forEach(System.out::println);
         Stream.of(bean.getById("1")).forEach(System.out::println);
-        bean.clear();
-        Stream.of(bean.list()).forEach(System.out::println);
-        Stream.of(bean.list1()).forEach(System.out::println);
+//        bean.clear(1);
+//        Stream.of(bean.list()).forEach(System.out::println);
+//        Stream.of(bean.list1()).forEach(System.out::println);
         Stream.of(bean.getById("1")).forEach(System.out::println);
         Stream.of(bean.getById("1")).forEach(System.out::println);
     }

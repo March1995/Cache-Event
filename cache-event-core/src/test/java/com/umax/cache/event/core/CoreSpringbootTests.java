@@ -32,17 +32,18 @@ public class CoreSpringbootTests {
 
     @Test
     public void test() throws InterruptedException {
-        Stream.of(bean.list()).forEach(System.out::println);
-        Stream.of(bean.list()).forEach(System.out::println);
-        Stream.of(bean.list1()).forEach(System.out::println);
-        Stream.of(bean.list1()).forEach(System.out::println);
-        Stream.of(bean.list2()).forEach(System.out::println);
-        Stream.of(bean.list2()).forEach(System.out::println);
-        bean.clear();
-        // mq有延迟
-        Thread.sleep(2000);
-        Stream.of(bean.list()).forEach(System.out::println);
-        Stream.of(bean.list1()).forEach(System.out::println);
-        Stream.of(bean.list2()).forEach(System.out::println);
+//        Stream.of(bean.list()).forEach(System.out::println);
+//        Stream.of(bean.list()).forEach(System.out::println);
+//        Stream.of(bean.list1()).forEach(System.out::println);
+//        Stream.of(bean.list1()).forEach(System.out::println);
+//        Stream.of(bean.list2()).forEach(System.out::println);
+//        Stream.of(bean.list2()).forEach(System.out::println);
+        Stream.of(bean.getById("1")).forEach(System.out::println);
+        Stream.of(bean.getById("2")).forEach(System.out::println);
+        Stream.of(bean.getById("1")).forEach(System.out::println);
+        bean.clear(1);
+//        Stream.of(bean.list()).forEach(System.out::println);
+//        Stream.of(bean.list1()).forEach(System.out::println);
+//        Stream.of(bean.list2()).forEach(System.out::println);
     }
 }

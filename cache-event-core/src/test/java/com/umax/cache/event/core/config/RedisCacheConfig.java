@@ -6,7 +6,12 @@ import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
+import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
@@ -31,8 +36,28 @@ public class RedisCacheConfig {
     private static Integer DEFAULT_EXPIRE_TIME = 60 * 10;
 
     @Bean
-    public CacheManager cacheManager() {
-        return caffeineCacheManager();
+    public CacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
+        if ("caffeine".equals(cacheType)) {
+            return caffeineCacheManager();
+        } else {
+            return redisCacheManager(redisConnectionFactory);
+        }
+    }
+
+
+    @Bean
+    public RedisTemplate<Object, Object> empRedisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        RedisTemplate<Object, Object> template = new RedisTemplate<>();
+        template.setConnectionFactory(redisConnectionFactory);
+        return template;
+    }
+
+    public CacheManager redisCacheManager(RedisConnectionFactory redisConnectionFactory) {
+        RedisCacheConfiguration cacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
+                .entryTtl(Duration.ofSeconds(600))  //存入Redis的时间设置600秒
+                //.entryTtl(Duration.ofDays(1))
+                .disableCachingNullValues();
+        return RedisCacheManager.builder(redisConnectionFactory).cacheDefaults(cacheConfiguration).build();
     }
 
 

@@ -36,7 +36,12 @@ spring:
       # 经单一接口测试，全传14m，null不传则10m
     default-property-inclusion: non_null
   cache:
-    type: caffeine
+    type: REDIS
+
+  redis:
+    host: 127.0.0.1
+    password:
+    port: 6379
 
 com:
   umax:
