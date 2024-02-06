@@ -39,6 +39,8 @@ public class EventRegistry implements ApplicationContextAware {
     private CacheClearEventBuilder eventBuilder;
     private CacheClearEventFactory eventFactory;
 
+
+    //  不是线程安全的 不能用并发
     private List<EventCacheable> eventCacheableList = new ArrayList<>();
     private List<EventCacheEvict> eventCacheEvictList = new ArrayList<>();
     private final Set<Class<?>> nonAnnotatedClasses = Collections.newSetFromMap(new ConcurrentHashMap<>(64));
@@ -74,30 +76,9 @@ public class EventRegistry implements ApplicationContextAware {
         Map<String, Object> beansWithAnnotationMap = applicationContext.getBeansWithAnnotation(Component.class);
         beansWithAnnotationMap
                 .values()
-                .parallelStream()
                 .forEach(bean -> processBean(AopUtils.getTargetClass(bean)));
     }
 
-    private void findAllAnnotation(ApplicationContext applicationContext) {
-        Map<String, Object> beansWithAnnotationMap = applicationContext.getBeansWithAnnotation(Component.class);
-        beansWithAnnotationMap
-                .values()
-                .parallelStream()
-                .forEach(value -> {
-            Class<?> clazz = AopUtils.getTargetClass(value);
-            Method[] methods = ReflectionUtils.getAllDeclaredMethods(clazz);
-            for (Method method : methods) {
-                if (method.isAnnotationPresent(EventCacheable.class)) {
-                    EventCacheable eventCacheable = AnnotationUtils.getAnnotation(method, EventCacheable.class);
-                    eventCacheableList.add(eventCacheable);
-                }
-                if (method.isAnnotationPresent(EventCacheEvict.class)) {
-                    EventCacheEvict evict = AnnotationUtils.getAnnotation(method, EventCacheEvict.class);
-                    eventCacheEvictList.add(evict);
-                }
-            }
-        });
-    }
 
     private void populateEventCacheList() {
         eventFactory.addEvict(eventCacheEvictList);
@@ -168,5 +149,27 @@ public class EventRegistry implements ApplicationContextAware {
             }
         }
     }
+
+
+//      private void findAllAnnotation(ApplicationContext applicationContext) {
+//        Map<String, Object> beansWithAnnotationMap = applicationContext.getBeansWithAnnotation(Component.class);
+//        beansWithAnnotationMap
+//                .values()
+//                .parallelStream()
+//                .forEach(value -> {
+//            Class<?> clazz = AopUtils.getTargetClass(value);
+//            Method[] methods = ReflectionUtils.getAllDeclaredMethods(clazz);
+//            for (Method method : methods) {
+//                if (method.isAnnotationPresent(EventCacheable.class)) {
+//                    EventCacheable eventCacheable = AnnotationUtils.getAnnotation(method, EventCacheable.class);
+//                    eventCacheableList.add(eventCacheable);
+//                }
+//                if (method.isAnnotationPresent(EventCacheEvict.class)) {
+//                    EventCacheEvict evict = AnnotationUtils.getAnnotation(method, EventCacheEvict.class);
+//                    eventCacheEvictList.add(evict);
+//                }
+//            }
+//        });
+//    }
 
 }

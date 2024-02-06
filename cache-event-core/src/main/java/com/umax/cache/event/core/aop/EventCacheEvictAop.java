@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Stream;
@@ -48,6 +49,7 @@ public class EventCacheEvictAop implements ApplicationContextAware {
      * @return
      */
     @After("catchAll()")
+    @Async
     public void doAfter(JoinPoint joinPoint) {
         String[] eventNames = AnnotationUtils.getAnnotation(((MethodSignature) joinPoint.getSignature()).getMethod(), EventCacheEvict.class).eventNames();
         Stream.of(eventNames).forEach(eventName -> {
