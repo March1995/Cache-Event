@@ -18,7 +18,6 @@ public class RabbitmqPushServiceImpl implements EventCachePushService {
 
     @Override
     public void push(String eventName) {
-        rabbitTemplate.convertAndSend(RabbitConstants.EXCHANGE_PRE + eventName,
-                RabbitConstants.QUEUE_KEY_PRE + eventName, eventName);
+        rabbitTemplate.convertAndSend(RabbitConstants.EXCHANGE_PRE, "", eventName);
     }
 }

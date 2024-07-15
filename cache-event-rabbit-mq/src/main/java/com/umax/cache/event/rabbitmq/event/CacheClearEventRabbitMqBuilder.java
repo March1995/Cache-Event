@@ -15,6 +15,8 @@ import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.GenericApplicationContext;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,8 +43,13 @@ public class CacheClearEventRabbitMqBuilder implements CacheClearEventBuilder {
     public void build(String eventName) {
         // 生成服务端
         RabbitAdmin rabbitAdmin = new RabbitAdmin(connectionFactory);
-        FanoutExchange exchange = new FanoutExchange(RabbitConstants.EXCHANGE_PRE + eventName);
-        Queue queue = queue(RabbitConstants.QUEUE_PRE + eventName);
+        FanoutExchange exchange = new FanoutExchange(RabbitConstants.EXCHANGE_PRE);
+        Queue queue = null;
+        try {
+            queue = queue(RabbitConstants.QUEUE_PRE + InetAddress.getLocalHost());
+        } catch (UnknownHostException e) {
+            throw new RuntimeException(e);
+        }
         rabbitAdmin.declareQueue(queue);
         rabbitAdmin.declareExchange(exchange);
         rabbitAdmin.declareBinding(BindingBuilder.bind(queue).to(exchange));
