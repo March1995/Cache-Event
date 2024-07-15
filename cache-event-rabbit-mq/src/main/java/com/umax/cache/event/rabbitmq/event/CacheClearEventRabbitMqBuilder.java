@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
+import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
@@ -40,11 +41,11 @@ public class CacheClearEventRabbitMqBuilder implements CacheClearEventBuilder {
     public void build(String eventName) {
         // 生成服务端
         RabbitAdmin rabbitAdmin = new RabbitAdmin(connectionFactory);
-        DirectExchange exchange = new DirectExchange(RabbitConstants.EXCHANGE_PRE + eventName);
+        FanoutExchange exchange = new FanoutExchange(RabbitConstants.EXCHANGE_PRE + eventName);
         Queue queue = queue(RabbitConstants.QUEUE_PRE + eventName);
         rabbitAdmin.declareQueue(queue);
         rabbitAdmin.declareExchange(exchange);
-        rabbitAdmin.declareBinding(BindingBuilder.bind(queue).to(exchange).with(RabbitConstants.QUEUE_KEY_PRE + eventName));
+        rabbitAdmin.declareBinding(BindingBuilder.bind(queue).to(exchange));
         RootBeanDefinition rootBeanDefinition = new RootBeanDefinition(RabbitAdmin.class);
         rootBeanDefinition.setSource(rabbitAdmin);
         applicationContext.registerBeanDefinition(queue.getName(), rootBeanDefinition);
