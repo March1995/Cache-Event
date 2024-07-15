@@ -3,8 +3,8 @@ spring:
   rabbitmq:
     username: root
     password: root
-    virtual-host: wyb
-    addresses: 11.168.3.235:5672
+    virtual-host: test
+    addresses: 11.168.3.186:5672
     #spring.rabbitmq.connection-timeout=50000
     #rabbitmq listetner
     listener:
@@ -32,11 +32,10 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     serialization:
       write_dates_as_timestamps: false
-      # 光哥要求为空也要传过去。
       # 经单一接口测试，全传14m，null不传则10m
     default-property-inclusion: non_null
   cache:
-    type: REDIS
+    type: caffeine
 
   redis:
     host: 127.0.0.1
