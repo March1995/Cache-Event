@@ -1,11 +1,11 @@
 package com.umax.cache.event.rabbitmq.event;
 
+import com.umax.cache.event.common.utils.InetAddressUtil;
 import com.umax.cache.event.core.constant.RabbitConstants;
 import com.umax.cache.event.core.event.CacheClearEventBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -15,8 +15,6 @@ import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.GenericApplicationContext;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,12 +42,7 @@ public class CacheClearEventRabbitMqBuilder implements CacheClearEventBuilder {
         // 生成服务端
         RabbitAdmin rabbitAdmin = new RabbitAdmin(connectionFactory);
         FanoutExchange exchange = new FanoutExchange(RabbitConstants.EXCHANGE_PRE);
-        Queue queue = null;
-        try {
-            queue = queue(RabbitConstants.QUEUE_PRE + InetAddress.getLocalHost());
-        } catch (UnknownHostException e) {
-            throw new RuntimeException(e);
-        }
+        Queue queue = queue(RabbitConstants.QUEUE_PRE + InetAddressUtil.getLocalHostExactAddress().getHostName());
         rabbitAdmin.declareQueue(queue);
         rabbitAdmin.declareExchange(exchange);
         rabbitAdmin.declareBinding(BindingBuilder.bind(queue).to(exchange));
@@ -69,7 +62,7 @@ public class CacheClearEventRabbitMqBuilder implements CacheClearEventBuilder {
         container.addQueueNames(queueName);
         log.info("往MQ中添加新的listener成功,队列名称[{}]", queueName);
         long consumerCount = container.getActiveConsumerCount();
-        log.info("添加成功:现有队列监听者[{}]个", consumerCount);
+//        log.info("添加成功:现有队列监听者[{}]个", consumerCount);
     }
 
     public Queue queue(String name) {
