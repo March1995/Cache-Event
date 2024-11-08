@@ -42,7 +42,9 @@ public class CacheClearEventRabbitMqBuilder implements CacheClearEventBuilder {
         // 生成服务端
         RabbitAdmin rabbitAdmin = new RabbitAdmin(connectionFactory);
         FanoutExchange exchange = new FanoutExchange(RabbitConstants.EXCHANGE_PRE);
-        Queue queue = queue(RabbitConstants.QUEUE_PRE + InetAddressUtil.getLocalHostExactAddress().getHostName());
+        String hostName = InetAddressUtil.getLocalHostExactAddress().getHostName();
+        log.error("[CacheClearEventRabbitMqBuilder],hostName:[{}]", hostName);
+        Queue queue = queue(RabbitConstants.QUEUE_PRE + hostName);
         rabbitAdmin.declareQueue(queue);
         rabbitAdmin.declareExchange(exchange);
         rabbitAdmin.declareBinding(BindingBuilder.bind(queue).to(exchange));
