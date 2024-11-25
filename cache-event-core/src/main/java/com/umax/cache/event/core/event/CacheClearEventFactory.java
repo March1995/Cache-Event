@@ -33,35 +33,32 @@ public class CacheClearEventFactory {
     public static Set<String> eventNameList = new HashSet<>();
 
     public void build() throws BeansException {
-        evictList.forEach(evict ->
-                Stream.of(evict.eventNames())
-                        .distinct()
-                        .filter(eventName -> !eventNameList.contains(eventName))
-                        .forEach(eventName -> {
-                            eventNameList.add(eventName);
-                            log.info("register cacheClearEvent success, eventName:[{}]", eventName);
-                            switch (pushType) {
-                                case SPRING_EVENT: {
+        switch (pushType) {
+            case SPRING_EVENT: {
+                evictList.forEach(evict ->
+                        Stream.of(evict.eventNames())
+                                .distinct()
+                                .filter(eventName -> !eventNameList.contains(eventName))
+                                .forEach(eventName -> {
+                                    eventNameList.add(eventName);
+                                    log.info("register cacheClearEvent success, eventName:[{}]", eventName);
                                     ConstructorArgumentValues cargs = new ConstructorArgumentValues();
                                     cargs.addIndexedArgumentValue(0, evict.eventNames());
                                     cargs.addIndexedArgumentValue(1, eventName);
                                     RootBeanDefinition rootBeanDefinition = new RootBeanDefinition(CacheClearEvent.class, cargs, null);
                                     applicationContext.registerBeanDefinition(eventName, rootBeanDefinition);
-                                    break;
-                                }
-                                case RABBIT_MQ: {
-                                    CacheClearEventBuilder cacheClearEventBuilder = applicationContext.getBean(CacheClearEventBuilder.class);
-                                    if (null == cacheClearEventBuilder) {
-                                        throw new RuntimeException("未配置RABBIT_MQ");
-                                    }
-                                    cacheClearEventBuilder.build(eventName);
-                                    break;
-                                }
-                                default: {
-                                    throw new RuntimeException("未设置默认推送方式");
-                                }
-                            }
-                        }));
+                                }));
+            }
+            case RABBIT_MQ: {
+                CacheClearEventBuilder cacheClearEventBuilder = applicationContext.getBean(CacheClearEventBuilder.class);
+                cacheClearEventBuilder.build("");
+                break;
+            }
+            default: {
+                throw new RuntimeException("未设置默认推送方式");
+            }
+        }
+
     }
 
 

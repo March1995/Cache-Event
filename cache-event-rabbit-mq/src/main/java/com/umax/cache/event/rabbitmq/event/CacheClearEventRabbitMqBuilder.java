@@ -15,7 +15,6 @@ import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.GenericApplicationContext;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,9 +42,9 @@ public class CacheClearEventRabbitMqBuilder implements CacheClearEventBuilder {
         // 生成服务端
         RabbitAdmin rabbitAdmin = new RabbitAdmin(connectionFactory);
         FanoutExchange exchange = new FanoutExchange(RabbitConstants.EXCHANGE_PRE);
-        String hostAddress = Arrays.toString(InetAddressUtil.getLocalHostExactAddress().getAddress());
-        log.error("[CacheClearEventRabbitMqBuilder],hostAddress:[{}]", hostAddress);
-        Queue queue = queue(RabbitConstants.QUEUE_PRE + hostAddress);
+        String hostIp = InetAddressUtil.getLocalHostExactAddress().getHostAddress();
+        log.info("当前获得的ip[{}]", hostIp);
+        Queue queue = queue(RabbitConstants.QUEUE_PRE + hostIp);
         rabbitAdmin.declareQueue(queue);
         rabbitAdmin.declareExchange(exchange);
         rabbitAdmin.declareBinding(BindingBuilder.bind(queue).to(exchange));
