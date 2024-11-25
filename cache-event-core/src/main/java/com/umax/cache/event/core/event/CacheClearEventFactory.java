@@ -48,6 +48,7 @@ public class CacheClearEventFactory {
                                     RootBeanDefinition rootBeanDefinition = new RootBeanDefinition(CacheClearEvent.class, cargs, null);
                                     applicationContext.registerBeanDefinition(eventName, rootBeanDefinition);
                                 }));
+                break;
             }
             case RABBIT_MQ: {
                 CacheClearEventBuilder cacheClearEventBuilder = applicationContext.getBean(CacheClearEventBuilder.class);
