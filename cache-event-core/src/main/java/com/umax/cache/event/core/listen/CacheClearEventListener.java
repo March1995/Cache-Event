@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * @author wangyingbo
- * @date 2023-02-02 17:13
+ * @since  2023-02-02 17:13
  **/
 public interface CacheClearEventListener {
 

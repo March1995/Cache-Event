@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * @author wangyingbo
- * @date 2023-02-02 15:04
+ * @since  2023-02-02 15:04
  **/
 @Configuration
 public class CacheClearRabbitMqListenerBuilder implements CacheClearEventListenerBuilder {

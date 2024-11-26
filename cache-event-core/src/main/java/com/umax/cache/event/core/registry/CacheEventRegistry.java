@@ -5,7 +5,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 
 /**
  * @author wangyingbo
- * @date 2023-01-30 17:13
+ * @since  2023-01-30 17:13
  **/
 public class CacheEventRegistry extends EventRegistry implements ApplicationListener<ContextRefreshedEvent> {
 

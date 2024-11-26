@@ -20,7 +20,7 @@ import java.util.Map;
 
 /**
  * @author wangyingbo
- * @date 2023-02-03 17:56
+ * @since  2023-02-03 17:56
  **/
 @Configuration
 public class CacheClearEventRabbitMqBuilder implements CacheClearEventBuilder {

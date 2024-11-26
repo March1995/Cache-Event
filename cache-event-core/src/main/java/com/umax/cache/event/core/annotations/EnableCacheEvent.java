@@ -7,7 +7,7 @@ import java.lang.annotation.*;
 
 /**
  * @author wangyingbo
- * @date 2023-01-30 17:37
+ * @since  2023-01-30 17:37
  **/
 @Import(CacheEventRegistry.class)
 @Target({ElementType.TYPE})

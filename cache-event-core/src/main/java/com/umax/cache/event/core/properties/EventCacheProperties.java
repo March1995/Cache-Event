@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 /**
  * Description:
  *
- * @author: Marcher丶
- * @Date: 2022-07-12 14:09
+ * @author  Marcher丶
+ * : 2022-07-12 14:09
  **/
 @ConfigurationProperties(prefix = EventCacheProperties.PREFIX)
 @Component

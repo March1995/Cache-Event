@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author wangyingbo
- * @date 2023-02-03 16:45
+ * @since  2023-02-03 16:45
  **/
 @Component
 public class RabbitmqPushServiceImpl implements EventCachePushService {

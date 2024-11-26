@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 
 /**
  * @author wangyingbo
- * @date 2023-02-02 17:20
+ * @since  2023-02-02 17:20
  **/
 public abstract class AbstractCacheClearEventListener implements CacheClearEventListener {
 

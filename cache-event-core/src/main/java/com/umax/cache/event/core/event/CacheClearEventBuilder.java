@@ -2,7 +2,7 @@ package com.umax.cache.event.core.event;
 
 /**
  * @author wangyingbo
- * @date 2023-02-03 17:58
+ * @since  2023-02-03 17:58
  **/
 public interface CacheClearEventBuilder {
 

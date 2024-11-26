@@ -7,7 +7,7 @@ import java.lang.annotation.*;
 
 /**
  * @author wangyingbo
- * @date 2023-01-30 17:04
+ * @since  2023-01-30 17:04
  **/
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)

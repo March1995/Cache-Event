@@ -24,7 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author wangyingbo
- * @date 2023-02-03 22:08
+ * @since  2023-02-03 22:08
  **/
 public class EventRegistry implements ApplicationContextAware {
     private GenericApplicationContext applicationContext;

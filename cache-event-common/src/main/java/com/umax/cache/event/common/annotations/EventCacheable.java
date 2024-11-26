@@ -2,7 +2,7 @@ package com.umax.cache.event.common.annotations;
 
 /**
  * @author wangyingbo
- * @date 2023-01-30 16:57
+ * @since  2023-01-30 16:57
  **/
 
 import org.springframework.cache.annotation.Cacheable;

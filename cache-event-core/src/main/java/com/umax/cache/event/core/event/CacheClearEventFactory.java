@@ -19,7 +19,7 @@ import java.util.stream.Stream;
  * 缓存清除事件
  *
  * @author wangyingbo
- * @date 2023-01-30 17:40
+ * @since  2023-01-30 17:40
  **/
 public class CacheClearEventFactory {
     public static final Logger log = LoggerFactory.getLogger(CacheClearEventFactory.class);

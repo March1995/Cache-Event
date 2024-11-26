@@ -6,7 +6,7 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
 
 /**
  * @author wangyingbo
- * @date 2023-02-03 16:50
+ * @since  2023-02-03 16:50
  **/
 public class PushTypeCondition implements Condition {
 

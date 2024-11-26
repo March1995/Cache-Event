@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationListener;
 
 /**
  * @author wangyingbo
- * @date 2023-01-30 17:56
+ * @since  2023-01-30 17:56
  **/
 public class CacheClearSpringListener extends AbstractCacheClearEventListener implements ApplicationListener<CacheClearEvent> {
 

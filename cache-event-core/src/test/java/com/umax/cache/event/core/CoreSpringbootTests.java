@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 
 /**
  * @author wangyingbo
- * @date 2023-02-02 9:51
+ * @since  2023-02-02 9:51
  **/
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CoreSpringbootTests.class)

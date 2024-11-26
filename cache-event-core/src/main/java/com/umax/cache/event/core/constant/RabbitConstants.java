@@ -2,7 +2,7 @@ package com.umax.cache.event.core.constant;
 
 /**
  * @author wangyingbo
- * @date 2023-02-01 19:28
+ * @since  2023-02-01 19:28
  **/
 public class RabbitConstants {
 

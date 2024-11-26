@@ -13,7 +13,7 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * @author wangyingbo
- * @date 2023-01-30 17:56
+ * @since  2023-01-30 17:56
  **/
 @Component
 public class CacheClearRabbitMqListener extends AbstractCacheClearEventListener implements ChannelAwareMessageListener {

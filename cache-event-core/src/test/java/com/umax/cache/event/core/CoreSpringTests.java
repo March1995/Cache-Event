@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 /**
  * @author wangyingbo
- * @date 2023-01-30 18:39
+ * @since  2023-01-30 18:39
  **/
 
 @ComponentScan(basePackages = "com.umax.cache.event")
