@@ -27,6 +27,8 @@ public class CacheClearEventRabbitMqBuilder implements CacheClearEventBuilder {
 
     public static final Logger log = LoggerFactory.getLogger(CacheClearEventRabbitMqBuilder.class);
 
+
+
     private final GenericApplicationContext applicationContext;
     private final ConnectionFactory connectionFactory;
 //    private final CacheClearRabbitMqListener listener;
