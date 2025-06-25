@@ -42,7 +42,7 @@ public class CacheClearEventRabbitMqBuilder implements CacheClearEventBuilder {
         // 生成服务端
         RabbitAdmin rabbitAdmin = new RabbitAdmin(connectionFactory);
         FanoutExchange exchange = new FanoutExchange(RabbitConstants.EXCHANGE_PRE);
-        String hostIp = InetAddressUtil.getLocalHostExactAddress().getHostAddress();
+        String hostIp = InetAddressUtil.getHostIp();
         log.info("当前获得的ip[{}]", hostIp);
         Queue queue = queue(RabbitConstants.QUEUE_PRE + hostIp);
         rabbitAdmin.declareQueue(queue);
@@ -72,7 +72,7 @@ public class CacheClearEventRabbitMqBuilder implements CacheClearEventBuilder {
         // 是否持久化
         boolean durable = true;
         // 仅创建者可以使用的私有队列，断开后自动删除
-        boolean exclusive = true;
+        boolean exclusive = false;
         // 至少有一个消费者连接到这个队列，之后所有与这个队列连接的消费者都断开时，才会自动删除
         boolean autoDelete = true;
         return new Queue(name, durable, exclusive, autoDelete, args);

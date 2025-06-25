@@ -48,4 +48,18 @@ public class InetAddressUtil {
         }
         return null;
     }
+
+    public static String getHostIp() {
+        // 环境变量（来自操作系统/Shell）
+        String envHostIp = System.getenv("HOST_IP");
+        if (envHostIp != null && !envHostIp.isEmpty()) {
+            return envHostIp;
+        }
+        // 系统属性（来自JVM启动参数 -D）
+        String propHostIp = System.getProperty("HOST_IP");
+        if (propHostIp != null && !propHostIp.isEmpty()) {
+            return propHostIp;
+        }
+        return InetAddressUtil.getLocalHostExactAddress().getHostAddress();
+    }
 }

@@ -4,7 +4,7 @@ spring:
     username: root
     password: root
     virtual-host: /
-    addresses: 11.168.3.235:5672
+    addresses: 11.168.3.186:5672
     #spring.rabbitmq.connection-timeout=50000
     #rabbitmq listetner
     listener:
@@ -41,5 +41,5 @@ spring:
 com:
   umax:
     cache-event:
-      push-type: SPRING_EVENT
-#      push-type: RABBIT_MQ
+#      push-type: SPRING_EVENT
+      push-type: RABBIT_MQ
