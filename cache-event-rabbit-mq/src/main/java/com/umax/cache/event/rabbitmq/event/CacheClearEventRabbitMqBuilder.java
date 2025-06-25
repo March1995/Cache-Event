@@ -77,7 +77,6 @@ public class CacheClearEventRabbitMqBuilder implements CacheClearEventBuilder {
         boolean exclusive = false;
         // 至少有一个消费者连接到这个队列，之后所有与这个队列连接的消费者都断开时，才会自动删除
         boolean autoDelete = true;
-
         return new Queue(name, durable, exclusive, autoDelete, args);
     }
 }
