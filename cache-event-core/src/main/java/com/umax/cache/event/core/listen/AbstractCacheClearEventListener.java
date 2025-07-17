@@ -1,18 +1,19 @@
 package com.umax.cache.event.core.listen;
 
-import com.umax.cache.event.common.annotations.EventCacheable;
+import com.umax.cache.event.core.registry.CacheDependencyRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
+import org.springframework.util.CollectionUtils;
 
-import java.util.*;
-import java.util.stream.Stream;
+import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author wangyingbo
- * @since  2023-02-02 17:20
+ * @since 2023-02-02 17:20
  **/
 public abstract class AbstractCacheClearEventListener implements CacheClearEventListener {
 
@@ -21,17 +22,20 @@ public abstract class AbstractCacheClearEventListener implements CacheClearEvent
     @Autowired
     protected CacheManager cacheManager;
 
-    protected Map<String, Set<String>> eventNameCacheNamesMap = new HashMap<>();
+    @Autowired
+    private CacheDependencyRegistry registry;
 
-    @Override
-    public void addEventCacheable(List<EventCacheable> eventCacheList) {
-        eventCacheList.forEach(eventCacheable -> {
-            Stream.of(eventCacheable.listenEventNames()).forEach(eventName -> {
-                eventNameCacheNamesMap.computeIfAbsent(eventName, key -> new HashSet<>())
-                        .addAll(List.of(eventCacheable.cacheNames()));
-            });
-        });
-    }
+//    protected Map<String, Set<String>> eventNameCacheNamesMap = new HashMap<>();
+//
+//    @Override
+//    public void addEventCacheable(List<EventCacheable> eventCacheList) {
+//        eventCacheList.forEach(eventCacheable -> {
+//            Stream.of(eventCacheable.listenEventNames()).forEach(eventName -> {
+//                eventNameCacheNamesMap.computeIfAbsent(eventName, key -> new HashSet<>())
+//                        .addAll(List.of(eventCacheable.cacheNames()));
+//            });
+//        });
+//    }
 
 
     @Override
@@ -51,7 +55,7 @@ public abstract class AbstractCacheClearEventListener implements CacheClearEvent
     }
 
     public void process(String eventName) {
-        if (eventNameCacheNamesMap.containsKey(eventName)) {
+        if (!CollectionUtils.isEmpty(registry.getDependentCaches(eventName))) {
             log.info("事件:[{}]在系统中已注册", eventName);
             processByCacheName(eventName);
         } else {
@@ -78,7 +82,7 @@ public abstract class AbstractCacheClearEventListener implements CacheClearEvent
 //    }
 
     private void processByCacheName(String eventName) {
-        Set<String> cacheNames = eventNameCacheNamesMap.get(eventName);
+        Set<String> cacheNames = registry.getDependentCaches(eventName);
         cacheNames.parallelStream().forEach(cacheName -> {
             log.info("清除事件:[{}]的缓存", cacheName);
             clear(cacheName);

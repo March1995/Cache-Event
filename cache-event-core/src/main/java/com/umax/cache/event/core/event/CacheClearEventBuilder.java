@@ -6,7 +6,6 @@ package com.umax.cache.event.core.event;
  **/
 public interface CacheClearEventBuilder {
 
-    public void build(String eventName);
+    public void build();
 
-//    void addEventCacheable(List<EventCacheable> eventCacheList);
 }

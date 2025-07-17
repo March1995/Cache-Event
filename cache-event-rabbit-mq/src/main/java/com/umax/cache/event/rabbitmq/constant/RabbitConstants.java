@@ -1,4 +1,4 @@
-package com.umax.cache.event.core.constant;
+package com.umax.cache.event.rabbitmq.constant;
 
 /**
  * @author wangyingbo

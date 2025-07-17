@@ -1,6 +1,6 @@
 package com.umax.cache.event.rabbitmq.push;
 
-import com.umax.cache.event.core.constant.RabbitConstants;
+import com.umax.cache.event.rabbitmq.constant.RabbitConstants;
 import com.umax.cache.event.core.push.EventCachePushService;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @author wangyingbo
  * @since  2023-02-03 16:45
  **/
-@Component
+@Component(value = "RabbitmqPushService")
 public class RabbitmqPushServiceImpl implements EventCachePushService {
 
     @Autowired

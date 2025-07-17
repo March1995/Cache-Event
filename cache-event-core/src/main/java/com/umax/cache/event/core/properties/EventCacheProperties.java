@@ -2,7 +2,6 @@ package com.umax.cache.event.core.properties;
 
 import com.umax.cache.event.core.enums.SpringEventPushType;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
 /**
  * Description:
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Component;
  * : 2022-07-12 14:09
  **/
 @ConfigurationProperties(prefix = EventCacheProperties.PREFIX)
-@Component
 public class EventCacheProperties {
 
     public static final String PREFIX = "com.umax.cache-event";

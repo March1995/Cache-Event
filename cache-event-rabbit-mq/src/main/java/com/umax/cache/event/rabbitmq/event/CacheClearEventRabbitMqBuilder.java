@@ -1,7 +1,7 @@
 package com.umax.cache.event.rabbitmq.event;
 
 import com.umax.cache.event.common.utils.InetAddressUtil;
-import com.umax.cache.event.core.constant.RabbitConstants;
+import com.umax.cache.event.rabbitmq.constant.RabbitConstants;
 import com.umax.cache.event.core.event.CacheClearEventBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,35 +12,31 @@ import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.beans.factory.support.RootBeanDefinition;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.GenericApplicationContext;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * @author wangyingbo
- * @since  2023-02-03 17:56
+ * @since 2023-02-03 17:56
  **/
-@Configuration
+@Component
 public class CacheClearEventRabbitMqBuilder implements CacheClearEventBuilder {
 
     public static final Logger log = LoggerFactory.getLogger(CacheClearEventRabbitMqBuilder.class);
 
-
-
     private final GenericApplicationContext applicationContext;
     private final ConnectionFactory connectionFactory;
-//    private final CacheClearRabbitMqListener listener;
 
     public CacheClearEventRabbitMqBuilder(GenericApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
         this.connectionFactory = applicationContext.getBean(ConnectionFactory.class);
-//        this.listener = listener;
     }
 
     @Override
-    public void build(String eventName) {
+    public void build() {
         // 生成服务端
         RabbitAdmin rabbitAdmin = new RabbitAdmin(connectionFactory);
         FanoutExchange exchange = new FanoutExchange(RabbitConstants.EXCHANGE_PRE);
@@ -55,11 +51,6 @@ public class CacheClearEventRabbitMqBuilder implements CacheClearEventBuilder {
         applicationContext.registerBeanDefinition(queue.getName(), rootBeanDefinition);
         addNewListener(queue.getName());
     }
-
-//    @Override
-//    public void addEventCacheable(List<EventCacheable> eventCacheList) {
-//        listener.addEventCacheable(eventCacheList);
-//    }
 
     private void addNewListener(String queueName) {
         SimpleMessageListenerContainer container = applicationContext.getBean(SimpleMessageListenerContainer.class);
