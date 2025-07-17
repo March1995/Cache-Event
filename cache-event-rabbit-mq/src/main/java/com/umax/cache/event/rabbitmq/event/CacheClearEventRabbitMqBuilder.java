@@ -1,8 +1,8 @@
 package com.umax.cache.event.rabbitmq.event;
 
 import com.umax.cache.event.common.utils.InetAddressUtil;
-import com.umax.cache.event.rabbitmq.constant.RabbitConstants;
 import com.umax.cache.event.core.event.CacheClearEventBuilder;
+import com.umax.cache.event.rabbitmq.constant.RabbitConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.BindingBuilder;
@@ -13,7 +13,6 @@ import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.context.support.GenericApplicationContext;
-import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +21,6 @@ import java.util.Map;
  * @author wangyingbo
  * @since 2023-02-03 17:56
  **/
-@Component
 public class CacheClearEventRabbitMqBuilder implements CacheClearEventBuilder {
 
     public static final Logger log = LoggerFactory.getLogger(CacheClearEventRabbitMqBuilder.class);
