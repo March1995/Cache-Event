@@ -1,22 +1,20 @@
 package com.umax.cache.event.core.registry;
 
 import com.umax.cache.event.common.annotations.CacheDependency;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.lang.reflect.Method;
 
 /**
  * @author wangyingbo
  * @date 2025-07-10 14:43
  */
-@Component
-public class CacheDependencyAnnotationProcessor implements BeanPostProcessor {
+public class CacheDependencyProcessor implements BeanPostProcessor {
 
-    @Autowired
+    @Resource
     private CacheDependencyRegistry registry;
 
     @Override

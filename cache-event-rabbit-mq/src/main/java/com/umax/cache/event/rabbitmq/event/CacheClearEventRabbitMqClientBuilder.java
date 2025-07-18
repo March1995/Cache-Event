@@ -1,7 +1,7 @@
 package com.umax.cache.event.rabbitmq.event;
 
 import com.umax.cache.event.common.utils.InetAddressUtil;
-import com.umax.cache.event.core.event.CacheClearEventBuilder;
+import com.umax.cache.event.core.event.CacheClearEventClientBuilder;
 import com.umax.cache.event.rabbitmq.constant.RabbitConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,14 +21,14 @@ import java.util.Map;
  * @author wangyingbo
  * @since 2023-02-03 17:56
  **/
-public class CacheClearEventRabbitMqBuilder implements CacheClearEventBuilder {
+public class CacheClearEventRabbitMqClientBuilder implements CacheClearEventClientBuilder {
 
-    public static final Logger log = LoggerFactory.getLogger(CacheClearEventRabbitMqBuilder.class);
+    public static final Logger log = LoggerFactory.getLogger(CacheClearEventRabbitMqClientBuilder.class);
 
     private final GenericApplicationContext applicationContext;
     private final ConnectionFactory connectionFactory;
 
-    public CacheClearEventRabbitMqBuilder(GenericApplicationContext applicationContext) {
+    public CacheClearEventRabbitMqClientBuilder(GenericApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
         this.connectionFactory = applicationContext.getBean(ConnectionFactory.class);
     }

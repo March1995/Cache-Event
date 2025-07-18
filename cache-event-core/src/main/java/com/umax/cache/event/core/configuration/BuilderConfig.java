@@ -1,7 +1,7 @@
 package com.umax.cache.event.core.configuration;
 
-import com.umax.cache.event.core.event.CacheClearEventBuilder;
-import com.umax.cache.event.core.event.spring.CacheClearEventSpingEventBuilder;
+import com.umax.cache.event.core.event.CacheClearEventClientBuilder;
+import com.umax.cache.event.core.event.spring.CacheClearEventSpingEventClientBuilder;
 import com.umax.cache.event.core.listen.CacheClearEventListenerBuilder;
 import com.umax.cache.event.core.listen.spring.CacheClearSpringListenerBuilder;
 import com.umax.cache.event.core.push.EventCachePushService;
@@ -21,9 +21,9 @@ public class BuilderConfig {
     }
 
     @Bean
-    @ConditionalOnMissingBean(value = {CacheClearEventBuilder.class})
-    public CacheClearEventBuilder cacheClearEventBuilder() {
-        return new CacheClearEventSpingEventBuilder();
+    @ConditionalOnMissingBean(value = {CacheClearEventClientBuilder.class})
+    public CacheClearEventClientBuilder cacheClearEventBuilder() {
+        return new CacheClearEventSpingEventClientBuilder();
     }
 
     @Bean("SpringEventPushService")
