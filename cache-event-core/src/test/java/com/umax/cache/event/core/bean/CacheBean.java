@@ -39,7 +39,7 @@ public class CacheBean {
     }
 
 //    @EventCacheable(listenEventNames = {"clear_dept_list"}, value = {"dept_by_id"}, key = "#id")
-    @Cacheable(cacheNames = {"dept_by_id"}, key = "#id")
+    @Cacheable(cacheNames = "", key = "#id")
     public String getById(String id) {
         System.out.print("非缓存操作");
         return id;
